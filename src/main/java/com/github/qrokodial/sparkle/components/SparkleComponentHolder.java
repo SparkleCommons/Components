@@ -37,7 +37,7 @@ public class SparkleComponentHolder<C extends Component> implements ComponentHol
             return Optional.empty();
         }
 
-        return Optional.of((T)component);
+        return Optional.of((T) component);
     }
 
     /**
@@ -55,6 +55,19 @@ public class SparkleComponentHolder<C extends Component> implements ComponentHol
         constructor.setAccessible(true);
 
         return (T)constructor.newInstance(parameters);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public <T extends  C> T forceAttachComponent(Class<T> componentClass, Object... parameters) {
+        try {
+            return attachComponent(componentClass, parameters);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**

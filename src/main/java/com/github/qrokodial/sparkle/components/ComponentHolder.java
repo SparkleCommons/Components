@@ -22,6 +22,7 @@ public interface ComponentHolder<C extends Component> {
      * returns that instance instead.
      *
      * @param componentClass
+     * @param parameters
      * @param <T>
      * @return the newly attached instance of the component
      * @throws IllegalAccessException  if the class or its nullary
@@ -35,6 +36,17 @@ public interface ComponentHolder<C extends Component> {
      * @throws InvocationTargetException if the underlying constructor throws an exception.
      */
     <T extends C> T attachComponent(Class<T> componentClass, Object... parameters) throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException;
+
+    /**
+     * Does what {@link #attachComponent(Class, Object...)} does, but ignores all exceptions. Only used when you're
+     * lazy and are sure no exceptions will be thrown.
+     *
+     * @param componentClass
+     * @param parameters
+     * @param <T>
+     * @return the newly attached instance of the component
+     */
+    <T extends  C> T forceAttachComponent(Class<T> componentClass, Object... parameters);
 
     /**
      * @param componentClass
