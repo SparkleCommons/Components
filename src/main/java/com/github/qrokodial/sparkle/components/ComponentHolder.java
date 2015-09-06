@@ -1,5 +1,6 @@
 package com.github.qrokodial.sparkle.components;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 
 public interface ComponentHolder<C extends Component> {
@@ -30,8 +31,10 @@ public interface ComponentHolder<C extends Component> {
      *         an interface, an array class, a primitive type, or void;
      *         or if the class has no nullary constructor;
      *         or if the instantiation fails for some other reason.
+     * @throws NoSuchMethodException if a matching method is not found.
+     * @throws InvocationTargetException if the underlying constructor throws an exception.
      */
-    <T extends C> T attachComponent(Class<T> componentClass) throws IllegalAccessException, InstantiationException;
+    <T extends C> T attachComponent(Class<T> componentClass, Object... parameters) throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException;
 
     /**
      * @param componentClass
