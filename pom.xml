@@ -6,7 +6,7 @@
 
     <groupId>com.github.qrokodial.sparkle</groupId>
     <artifactId>components</artifactId>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
     <url>https://github.com/SparkleCommons/Components</url>
     <description>An implementation of the composition over inheritance principle</description>
