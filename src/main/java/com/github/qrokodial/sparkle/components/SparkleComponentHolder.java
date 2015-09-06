@@ -54,7 +54,11 @@ public class SparkleComponentHolder<C extends Component> implements ComponentHol
         Constructor<?> constructor = componentClass.getDeclaredConstructor(ArrayUtils.getTypes(parameters));
         constructor.setAccessible(true);
 
-        return (T)constructor.newInstance(parameters);
+        T componentInstance = (T)constructor.newInstance(parameters);
+        componentMap.put(componentClass, componentInstance);
+        componentInstance.onAttached(this);
+
+        return componentInstance;
     }
 
     /**
@@ -76,6 +80,9 @@ public class SparkleComponentHolder<C extends Component> implements ComponentHol
     @Override
     public <T extends C> Optional<T> removeComponent(Class<T> componentClass) {
         Optional<T> component = getComponent(componentClass);
+        if (component.isPresent()) {
+            component.get().onDetached();
+        }
 
         componentMap.remove(componentClass);
 
