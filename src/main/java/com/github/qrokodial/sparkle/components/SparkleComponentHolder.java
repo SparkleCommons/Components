@@ -4,12 +4,14 @@ import com.github.qrokodial.sparkle.utilities.collections.ArrayUtils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class SparkleComponentHolder<C extends Component> implements ComponentHolder<C> {
-    private Map<Class<? extends Component>, Component> componentMap;
+    private Map<Class<? extends C>, Component> componentMap;
 
     /**
      * Instantiates the class.
@@ -38,6 +40,25 @@ public class SparkleComponentHolder<C extends Component> implements ComponentHol
         }
 
         return Optional.of((T) component);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection<C> getComponents(Class<?>... types) {
+        Collection<C> matches = new HashSet<>();
+
+        for (Class<? extends C> componentClass : componentMap.keySet()) {
+            for (Class<?> type : types) {
+                if (componentClass.isAssignableFrom(type)) {
+                    matches.add((C)componentMap.get(componentClass));
+                    break;
+                }
+            }
+        }
+
+        return matches;
     }
 
     /**

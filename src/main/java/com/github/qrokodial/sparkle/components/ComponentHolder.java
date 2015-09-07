@@ -1,6 +1,7 @@
 package com.github.qrokodial.sparkle.components;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Collection;
 import java.util.Optional;
 
 public interface ComponentHolder<C extends Component> {
@@ -16,6 +17,15 @@ public interface ComponentHolder<C extends Component> {
      * @return the component that matches the class that is held within this holder, if there is one
      */
     <T extends C> Optional<T> getComponent(Class<T> componentClass);
+
+    /**
+     * Gets all components that inherit certain types.
+     *
+     * @param types
+     * @param <T>
+     * @return a collection of all the matching components
+     */
+    Collection<C> getComponents(Class<?>... types);
 
     /**
      * Attaches the component to the holder. If there is an attached component that already matches the class, it simply
