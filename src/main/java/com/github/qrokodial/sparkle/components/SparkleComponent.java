@@ -10,6 +10,7 @@ public class SparkleComponent<H extends ComponentHolder> implements Component<H>
      */
     public void onAttached(H holder) {
         this.holder = Optional.of(holder);
+        onRegistered();
     }
 
     /**
