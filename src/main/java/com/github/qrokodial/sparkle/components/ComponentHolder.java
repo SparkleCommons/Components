@@ -21,7 +21,16 @@ public interface ComponentHolder<C extends Component> {
     /**
      * @return all the components held by this holder
      */
-    public Collection<C> getComponents();
+    Collection<C> getComponents();
+
+    /**
+     * Gets all componenets that inherit a certain type.
+     *
+     * @param type
+     * @param <T>
+     * @return a collection of all the matching components
+     */
+    <T> Collection<T> getComponents(Class<T> type);
 
     /**
      * Gets all components that inherit certain types.

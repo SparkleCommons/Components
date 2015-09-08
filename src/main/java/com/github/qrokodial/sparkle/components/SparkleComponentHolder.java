@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public abstract class SparkleComponentHolder<C extends Component> implements ComponentHolder<C> {
     private Map<Class<? extends C>, C> componentMap;
@@ -47,6 +48,14 @@ public abstract class SparkleComponentHolder<C extends Component> implements Com
     @Override
     public Collection<C> getComponents() {
         return componentMap.values();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public <T> Collection<T> getComponents(Class<T> type) {
+        return componentMap.keySet().stream().filter(componentClass -> componentClass.isAssignableFrom(type)).map(componentClass -> (T) componentMap.get(componentClass)).collect(Collectors.toSet());
     }
 
     /**
