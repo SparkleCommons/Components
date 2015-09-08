@@ -19,6 +19,11 @@ public interface ComponentHolder<C extends Component> {
     <T extends C> Optional<T> getComponent(Class<T> componentClass);
 
     /**
+     * @return all the components held by this holder
+     */
+    public Collection<C> getComponents();
+
+    /**
      * Gets all components that inherit certain types.
      *
      * @param types

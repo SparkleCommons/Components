@@ -10,13 +10,18 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class SparkleComponentHolder<C extends Component> implements ComponentHolder<C> {
-    private Map<Class<? extends C>, Component> componentMap;
+/**
+ * For when the order of your components is irrelevant.
+ *
+ * @param <C>
+ */
+public class UnorderedComponentHolder<C extends Component> implements ComponentHolder<C> {
+    private Map<Class<? extends C>, C> componentMap;
 
     /**
      * Instantiates the class.
      */
-    public SparkleComponentHolder() {
+    public UnorderedComponentHolder() {
         componentMap = new ConcurrentHashMap<>();
     }
 
@@ -40,6 +45,14 @@ public class SparkleComponentHolder<C extends Component> implements ComponentHol
         }
 
         return Optional.of((T) component);
+    }
+
+    /**
+     * @return all the components held by this holder
+     */
+    @Override
+    public Collection<C> getComponents() {
+        return componentMap.values();
     }
 
     /**
