@@ -1,6 +1,7 @@
 package com.github.qrokodial.sparkle.components;
 
-import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.Collections;
+import java.util.LinkedHashMap;
 
 /**
  * For when the order of your components is important.
@@ -12,6 +13,6 @@ public class OrderedComponentHolder<C extends Component> extends SparkleComponen
      * Instantiates the class.
      */
     public OrderedComponentHolder() {
-        super(new ConcurrentSkipListMap<>());
+        super(Collections.synchronizedMap(new LinkedHashMap<>()));
     }
 }
