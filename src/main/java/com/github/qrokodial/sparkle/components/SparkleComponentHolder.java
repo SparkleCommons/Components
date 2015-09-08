@@ -4,14 +4,10 @@ import com.github.qrokodial.sparkle.utilities.collections.ArrayUtils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public abstract class SparkleComponentHolder<C extends Component> implements ComponentHolder<C> {
-    private Map<Class<? extends C>, C> componentMap;
+    protected Map<Class<? extends C>, C> componentMap;
 
     /**
      * Instantiates the class.
@@ -55,7 +51,15 @@ public abstract class SparkleComponentHolder<C extends Component> implements Com
      */
     @Override
     public <T> Collection<T> getComponents(Class<T> type) {
-        return componentMap.keySet().stream().filter(componentClass -> type.isAssignableFrom(componentClass)).map(componentClass -> (T) componentMap.get(componentClass)).collect(Collectors.toSet());
+        Collection<T> matches = new ArrayList<>();
+
+        componentMap.forEach((componentClass, component) -> {
+            if (type.isAssignableFrom(componentClass)) {
+                matches.add((T)component);
+            }
+        });
+
+        return matches;
     }
 
     /**
@@ -63,16 +67,16 @@ public abstract class SparkleComponentHolder<C extends Component> implements Com
      */
     @Override
     public Collection<C> getComponents(Class<?>... types) {
-        Collection<C> matches = new HashSet<>();
+        Collection<C> matches = new ArrayList<>();
 
-        for (Class<? extends C> componentClass : componentMap.keySet()) {
+        componentMap.forEach((componentClass, component) -> {
             for (Class<?> type : types) {
                 if (type.isAssignableFrom(componentClass)) {
-                    matches.add(componentMap.get(componentClass));
+                    matches.add(component);
                     break;
                 }
             }
-        }
+        });
 
         return matches;
     }
