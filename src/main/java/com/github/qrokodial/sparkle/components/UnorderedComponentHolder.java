@@ -65,7 +65,7 @@ public class UnorderedComponentHolder<C extends Component> implements ComponentH
         for (Class<? extends C> componentClass : componentMap.keySet()) {
             for (Class<?> type : types) {
                 if (componentClass.isAssignableFrom(type)) {
-                    matches.add((C)componentMap.get(componentClass));
+                    matches.add(componentMap.get(componentClass));
                     break;
                 }
             }
