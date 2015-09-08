@@ -55,7 +55,7 @@ public abstract class SparkleComponentHolder<C extends Component> implements Com
      */
     @Override
     public <T> Collection<T> getComponents(Class<T> type) {
-        return componentMap.keySet().stream().filter(componentClass -> componentClass.isAssignableFrom(type)).map(componentClass -> (T) componentMap.get(componentClass)).collect(Collectors.toSet());
+        return componentMap.keySet().stream().filter(componentClass -> type.isAssignableFrom(componentClass)).map(componentClass -> (T) componentMap.get(componentClass)).collect(Collectors.toSet());
     }
 
     /**
@@ -67,7 +67,7 @@ public abstract class SparkleComponentHolder<C extends Component> implements Com
 
         for (Class<? extends C> componentClass : componentMap.keySet()) {
             for (Class<?> type : types) {
-                if (componentClass.isAssignableFrom(type)) {
+                if (type.isAssignableFrom(componentClass)) {
                     matches.add(componentMap.get(componentClass));
                     break;
                 }
