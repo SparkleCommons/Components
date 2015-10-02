@@ -4,10 +4,8 @@ import com.github.qrokodial.sparkle.utilities.collections.ArrayMap;
 
 /**
  * For when the order of your components is important.
- *
- * @param <C>
  */
-public class SparkleOrderedComponentHolder<C extends MovableComponent> extends SparkleComponentHolder<C> implements OrderedComponentHolder<C> {
+public class SparkleOrderedComponentHolder extends SparkleComponentHolder implements OrderedComponentHolder {
     /**
      * Instantiates the class.
      */
@@ -25,9 +23,9 @@ public class SparkleOrderedComponentHolder<C extends MovableComponent> extends S
      * @return the component holder instance
      */
     @Override
-    public SparkleOrderedComponentHolder moveComponent(Class<C> componentClass, int index) {
+    public SparkleOrderedComponentHolder moveComponent(Class<? extends MovableComponent> componentClass, int index) {
         if (hasComponent(componentClass)) {
-            ((ArrayMap<Class<? extends C>, C>)componentMap).put(componentClass, getComponent(componentClass).get(), index);
+            ((ArrayMap<Class<? extends Component>, Component>)componentMap).put(componentClass, getComponent(componentClass).get(), index);
         }
         return this;
     }

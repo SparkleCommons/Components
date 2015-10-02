@@ -1,6 +1,6 @@
 package com.github.qrokodial.sparkle.components;
 
-public interface OrderedComponentHolder<C extends MovableComponent> extends ComponentHolder<C> {
+public interface OrderedComponentHolder extends ComponentHolder {
     /**
      * Moves the specified element at the specified position in this list (optional operation).  Shifts the element
      * currently at that position (if any) and any subsequent elements to the right (adds one to their indices). If the
@@ -10,5 +10,5 @@ public interface OrderedComponentHolder<C extends MovableComponent> extends Comp
      * @param index the index to move the component to
      * @return the component holder instance
      */
-    SparkleOrderedComponentHolder moveComponent(Class<C> componentClass, int index);
+    SparkleOrderedComponentHolder moveComponent(Class<? extends MovableComponent> componentClass, int index);
 }

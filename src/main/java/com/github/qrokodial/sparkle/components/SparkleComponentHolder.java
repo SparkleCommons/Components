@@ -6,13 +6,13 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
-public abstract class SparkleComponentHolder<C extends Component> implements ComponentHolder<C> {
-    protected Map<Class<? extends C>, C> componentMap;
+public abstract class SparkleComponentHolder implements ComponentHolder {
+    protected Map<Class<? extends Component>, Component> componentMap;
 
     /**
      * Instantiates the class.
      */
-    public SparkleComponentHolder(Map<Class<? extends C>, C> componentMap) {
+    public SparkleComponentHolder(Map<Class<? extends Component>, Component> componentMap) {
         this.componentMap = componentMap;
     }
 
@@ -20,7 +20,7 @@ public abstract class SparkleComponentHolder<C extends Component> implements Com
      * {@inheritDoc}
      */
     @Override
-    public boolean hasComponent(Class<? extends C> componentClass) {
+    public boolean hasComponent(Class<? extends Component> componentClass) {
         return componentMap.containsKey(componentClass);
     }
 
@@ -28,21 +28,21 @@ public abstract class SparkleComponentHolder<C extends Component> implements Com
      * {@inheritDoc}
      */
     @Override
-    public <T extends C> Optional<T> getComponent(Class<T> componentClass) {
+    public <T extends Component> Optional<T> getComponent(Class<T> componentClass) {
         Component component = componentMap.get(componentClass);
 
         if (component == null) {
             return Optional.empty();
         }
 
-        return Optional.of((T) component);
+        return Optional.of((T)component);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Collection<C> getComponents() {
+    public Collection<Component> getComponents() {
         return componentMap.values();
     }
 
@@ -66,8 +66,8 @@ public abstract class SparkleComponentHolder<C extends Component> implements Com
      * {@inheritDoc}
      */
     @Override
-    public Collection<C> getComponents(Class<?>... types) {
-        Collection<C> matches = new ArrayList<>();
+    public Collection<Component> getComponents(Class<?>... types) {
+        Collection<Component> matches = new ArrayList<>();
 
         componentMap.forEach((componentClass, component) -> {
             for (Class<?> type : types) {
@@ -85,7 +85,7 @@ public abstract class SparkleComponentHolder<C extends Component> implements Com
      * {@inheritDoc}
      */
     @Override
-    public <T extends C> T attachComponent(Class<T> componentClass, Object... parameters) throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
+    public <T extends Component> T attachComponent(Class<T> componentClass, Object... parameters) throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
         Optional<T> component = getComponent(componentClass);
 
         if (component.isPresent()) {
@@ -106,7 +106,7 @@ public abstract class SparkleComponentHolder<C extends Component> implements Com
      * {@inheritDoc}
      */
     @Override
-    public <T extends  C> T forceAttachComponent(Class<T> componentClass, Object... parameters) {
+    public <T extends  Component> T forceAttachComponent(Class<T> componentClass, Object... parameters) {
         try {
             return attachComponent(componentClass, parameters);
         } catch (Exception e) {
@@ -119,7 +119,7 @@ public abstract class SparkleComponentHolder<C extends Component> implements Com
      * {@inheritDoc}
      */
     @Override
-    public <T extends C> Optional<T> removeComponent(Class<T> componentClass) {
+    public <T extends Component> Optional<T> removeComponent(Class<T> componentClass) {
         Optional<T> component = getComponent(componentClass);
         if (component.isPresent()) {
             component.get().onDetached();

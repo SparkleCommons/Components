@@ -4,10 +4,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * For when the order of your components is irrelevant.
- *
- * @param <C>
  */
-public class UnorderedComponentHolder<C extends Component> extends SparkleComponentHolder<C> {
+public class UnorderedComponentHolder extends SparkleComponentHolder {
     /**
      * Instantiates the class.
      */

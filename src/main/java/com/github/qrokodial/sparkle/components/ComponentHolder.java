@@ -4,24 +4,24 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.Optional;
 
-public interface ComponentHolder<C extends Component> {
+public interface ComponentHolder {
     /**
      * @param componentClass
      * @return true if this holder contains a component, false otherwise
      */
-    boolean hasComponent(Class<? extends C> componentClass);
+    boolean hasComponent(Class<? extends Component> componentClass);
 
     /**
      * @param componentClass
      * @param <T>
      * @return the component that matches the class that is held within this holder, if there is one
      */
-    <T extends C> Optional<T> getComponent(Class<T> componentClass);
+    <T extends Component> Optional<T> getComponent(Class<T> componentClass);
 
     /**
      * @return all the components held by this holder
      */
-    Collection<C> getComponents();
+    Collection<Component> getComponents();
 
     /**
      * Gets all componenets that inherit a certain type.
@@ -36,10 +36,9 @@ public interface ComponentHolder<C extends Component> {
      * Gets all components that inherit certain types.
      *
      * @param types
-     * @param <T>
      * @return a collection of all the matching components
      */
-    Collection<C> getComponents(Class<?>... types);
+    Collection<Component> getComponents(Class<?>... types);
 
     /**
      * Attaches the component to the holder. If there is an attached component that already matches the class, it simply
@@ -59,7 +58,7 @@ public interface ComponentHolder<C extends Component> {
      * @throws NoSuchMethodException if a matching method is not found.
      * @throws InvocationTargetException if the underlying constructor throws an exception.
      */
-    <T extends C> T attachComponent(Class<T> componentClass, Object... parameters) throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException;
+    <T extends Component> T attachComponent(Class<T> componentClass, Object... parameters) throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException;
 
     /**
      * Does what {@link #attachComponent(Class, Object...)} does, but ignores all exceptions. Only used when you're
@@ -70,12 +69,12 @@ public interface ComponentHolder<C extends Component> {
      * @param <T>
      * @return the newly attached instance of the component
      */
-    <T extends  C> T forceAttachComponent(Class<T> componentClass, Object... parameters);
+    <T extends  Component> T forceAttachComponent(Class<T> componentClass, Object... parameters);
 
     /**
      * @param componentClass
      * @param <T>
      * @return the component that has been removed from this holder, if there is one
      */
-    <T extends C> Optional<T> removeComponent(Class<T> componentClass);
+    <T extends Component> Optional<T> removeComponent(Class<T> componentClass);
 }
