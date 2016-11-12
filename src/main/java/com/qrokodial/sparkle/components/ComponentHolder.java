@@ -1,4 +1,4 @@
-package com.github.qrokodial.sparkle.components;
+package com.qrokodial.sparkle.components;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;

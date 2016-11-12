@@ -1,4 +1,6 @@
-package com.github.qrokodial.sparkle.components;
+package com.qrokodial.sparkle.components.ordered;
+
+import com.qrokodial.sparkle.components.ComponentHolder;
 
 public interface OrderedComponentHolder extends ComponentHolder {
     /**

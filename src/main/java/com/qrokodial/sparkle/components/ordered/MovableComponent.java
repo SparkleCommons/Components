@@ -1,4 +1,6 @@
-package com.github.qrokodial.sparkle.components;
+package com.qrokodial.sparkle.components.ordered;
+
+import com.qrokodial.sparkle.components.Component;
 
 public interface MovableComponent<H extends OrderedComponentHolder> extends Component<H> {
     /**

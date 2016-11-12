@@ -1,6 +1,8 @@
-package com.github.qrokodial.sparkle.components;
+package com.qrokodial.sparkle.components.ordered;
 
-import com.github.qrokodial.sparkle.utilities.collections.ArrayMap;
+import com.qrokodial.sparkle.components.Component;
+import com.qrokodial.sparkle.components.SparkleComponentHolder;
+import com.qrokodial.sparkle.utilities.collections.ArrayMap;
 
 /**
  * For when the order of your components is important.

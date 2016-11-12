@@ -1,10 +1,13 @@
-package com.github.qrokodial.sparkle.components;
+package com.qrokodial.sparkle.components;
 
-import com.github.qrokodial.sparkle.utilities.collections.ArrayUtils;
+import com.qrokodial.sparkle.utilities.collections.ArrayUtils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Optional;
 
 public abstract class SparkleComponentHolder implements ComponentHolder {
     protected Map<Class<? extends Component>, Component> componentMap;
